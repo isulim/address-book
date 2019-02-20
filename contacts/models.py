@@ -13,6 +13,7 @@ CONTACT_TYPES = (
     (7, 'Other'),
 )
 
+
 class Person(models.Model):
     firstName = models.CharField(max_length=32)
     lastName = models.CharField(max_length=64)
@@ -20,6 +21,10 @@ class Person(models.Model):
     address = models.ForeignKey('Address', on_delete=models.PROTECT, null=True)
     company = models.CharField(max_length=100, null=True)
     job = models.CharField(max_length=100, null=True)
+
+    def __str__(self):
+        return '{} {}'.format(self.firstName, self.lastName)
+
 
 class Address(models.Model):
     country = CountryField()
@@ -29,17 +34,32 @@ class Address(models.Model):
     number = models.PositiveSmallIntegerField()
     aptNumber = models.PositiveSmallIntegerField(null=True)
 
+    def __str__(self):
+        return '{} {} {} {}'.format(self.country, self.city, self.street, self.number)
+
+
 class Phone(models.Model):
     phoneNumber = models.PositiveSmallIntegerField()
     phoneType = models.SmallIntegerField(choices=CONTACT_TYPES)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '{} {}'.format(self.person, self.phoneNumber)
+
 
 class Email(models.Model):
     email = models.EmailField()
     emailType = models.SmallIntegerField(choices=CONTACT_TYPES)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return '{} {}'.format(self.person, self.email)
+
+
 class Group(models.Model):
     name = models.CharField(max_length=100)
     person = models.ManyToManyField('Person')
+
+    def __str__(self):
+        return self.name
 
