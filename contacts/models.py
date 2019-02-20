@@ -1,5 +1,4 @@
 from django.db import models
-from django_countries.fields import CountryField
 
 # Create your models here.
 
@@ -27,7 +26,7 @@ class Person(models.Model):
 
 
 class Address(models.Model):
-    country = CountryField()
+    country = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     zipcode = models.CharField(max_length=6)
     street = models.CharField(max_length=100)
@@ -39,7 +38,7 @@ class Address(models.Model):
 
 
 class Phone(models.Model):
-    phoneNumber = models.PositiveSmallIntegerField()
+    phoneNumber = models.CharField(max_length=16)
     phoneType = models.SmallIntegerField(choices=CONTACT_TYPES)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
 

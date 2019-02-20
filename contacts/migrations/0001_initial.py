@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             name='Address',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('country', django_countries.fields.CountryField(max_length=2)),
+                ('country', models.CharField(max_length=100)),
                 ('city', models.CharField(max_length=100)),
                 ('zipcode', models.CharField(max_length=6)),
                 ('street', models.CharField(max_length=100)),
@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
             name='Phone',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('phoneNumber', models.PositiveSmallIntegerField()),
+                ('phoneNumber', models.CharField(max_length=16)),
                 ('phoneType', models.SmallIntegerField(choices=[(1, 'Cell'), (2, 'Work'), (3, 'Home'), (4, 'Main'), (5, 'Fax-home'), (6, 'Fax-work'), (7, 'Other')])),
                 ('person', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contacts.Person')),
             ],
